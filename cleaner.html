@@ -1,0 +1,40 @@
+<script type="module">
+  const rawUsers = [
+  {id: "001", name: "   sama mansour  ", active: "yes", age: "22", email: "SAMA@Email.COM" },
+  {id: "002", name: "john doe", active: "no", age: "  ", email: "JOHN@EMAIL.com" },
+  {id: "003", name: "Jane Smith", active: "yes", age: "30", email: "Jane.Smith@Example.com" },
+  {id: "004", name: null, active: "yes", age: "n/a", email: "noemail" },
+  ];
+
+  function cleanUserData(rawUsers) {
+  return rawUsers
+    .filter(user => user.name && user.email.includes('@') && user.active === 'yes') // Remove incomplete/inactive
+    .map(user => {
+      return {
+    id: parseInt(user.id),
+  name: capitalizeWords(user.name.trim()),
+  active: true,
+  age: parseAge(user.age),
+  email: user.email.toLowerCase(),
+      };
+    });
+}
+
+  function capitalizeWords(str) {
+  return str.split(' ')
+  .filter(Boolean)
+    .map(w => w[0].toUpperCase() + w.slice(1).toLowerCase())
+  .join(' ');
+}
+
+  function parseAge(ageStr) {
+  const age = parseInt(ageStr);
+  return isNaN(age) ? null : age;
+}
+
+  const cleanedUsers = cleanUserData(rawUsers);
+
+  console.log(cleanedUsers);
+
+
+</script>
